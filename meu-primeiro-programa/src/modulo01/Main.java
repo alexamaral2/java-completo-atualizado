@@ -2,11 +2,11 @@ package modulo01;
 
 import javax.swing.*;
 
-public class PrimeiroPrograma {
+public class Main {
     public static void main(String[] args) {
         JFrame janela = new JFrame();
-        janela.setTitle("Hello World!");
-        janela.setSize(500,500);
+        janela.setTitle("Hello World");
+        janela.setSize(500, 500);
         janela.setVisible(true);
     }
 }
