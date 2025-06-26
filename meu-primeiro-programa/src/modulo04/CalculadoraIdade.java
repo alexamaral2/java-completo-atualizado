@@ -21,6 +21,18 @@ public class CalculadoraIdade {
 
         System.out.println("A idade é " + resultado);
 
+        if (resultado < 18){
+            System.out.println("Você é menor de idade.");
+        } else if (resultado < 60){
+            System.out.println("Você é maior de idade.");
+        } else {
+            System.out.println("Você é um idoso.");
+        }
+
+        if (resultado < 12){
+            System.out.println("Você é uma criança.");
+        }
+
         leitorTeclado.close();
     }
 }
