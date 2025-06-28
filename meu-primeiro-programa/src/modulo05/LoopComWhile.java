@@ -9,10 +9,12 @@ public class LoopComWhile {
 
         System.out.println("Digite um valor: ");
         int contador = sc.nextInt();
-        int valor = 1;
+        int valor = 2;
 
-        while(valor <= contador){
-            System.out.println(valor);
+        while (valor <= contador){
+            if (valor % 2 == 0){
+                System.out.println(valor);
+            }
             valor++;
         }
 
