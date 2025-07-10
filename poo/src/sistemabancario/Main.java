@@ -1,7 +1,11 @@
 package sistemabancario;
 
 public class Main {
+
     public static void main(String[] args) {
+
+        System.out.println(ValidadorCPF.validarCPF("123"));
+
         Cliente fulano = new Cliente("01234567890", "fulano");
         System.out.println(fulano.getNome() + " CPF: " + fulano.getCpf());
 
@@ -37,5 +41,7 @@ public class Main {
 
         contaFulano.imprimirSaldo();
         contaCicrano.imprimirSaldo();
+
+        System.out.println("Quantidade Clientes: " + Cliente.quantidadeCliente);
     }
 }
