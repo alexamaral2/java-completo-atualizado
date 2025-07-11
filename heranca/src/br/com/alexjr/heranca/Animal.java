@@ -4,6 +4,14 @@ public class Animal {
     private String nome;
     private int idade;
 
+    public Animal() {
+    }
+
+    public Animal(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -32,7 +40,7 @@ public class Animal {
         System.out.println("ZZZZ..");
     }
 
-    public void imprimirDados(){
+    protected void imprimirDados(){
         System.out.println("Nome: " + nome);
         System.out.println("Idade: " + idade);
     }

@@ -4,6 +4,11 @@ public class Hipopotamo extends Animal{
 
     private int forcaMordida;
 
+    public Hipopotamo(int idade, int forcaMordida) {
+        super("Hipopotamo",idade);
+        this.forcaMordida = forcaMordida;
+    }
+
     public void ficarNaAgua(){
         System.out.println("Estou na água...");
     }

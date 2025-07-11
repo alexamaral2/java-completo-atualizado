@@ -4,6 +4,10 @@ public class Panda extends Animal {
     private String cor;
     private String corSecundaria;
 
+    public Panda(int idade) {
+        super("Panda", idade);
+    }
+
     public void subirArvore(){
         System.out.println("Subindo...");
     }
