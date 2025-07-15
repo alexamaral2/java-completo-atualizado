@@ -2,6 +2,11 @@ package br.com.alexjr.interfaces;
 
 public class Main {
     public static void main(String[] args) {
+
+        CarroEletrico.imprimirAlgo();
+
+        CarroHibrido carroHibrido = new CarroHibrido();
+
         Autenticador autenticador = new Autenticador();
 
         Autenticacao email = new CredencialEmail("email@fulano.com", "321");
