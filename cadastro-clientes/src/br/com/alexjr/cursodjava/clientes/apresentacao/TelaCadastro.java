@@ -2,6 +2,8 @@ package br.com.alexjr.cursodjava.clientes.apresentacao;
 
 import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
 import br.com.alexjr.cursodjava.clientes.dominio.enums.TipoSexo;
+import br.com.alexjr.cursodjava.clientes.logicanegocio.Cadastro;
+import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroClienteFake;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -85,7 +87,8 @@ public class TelaCadastro extends JFrame {
                 cliente.setCpf(campoCpf.getText());
                 cliente.setSexo((TipoSexo) campoSexo.getSelectedItem());
 
-                JOptionPane.showMessageDialog(null, cliente);
+                Cadastro<Cliente> logicaCadastro = new LogicaCadastroClienteFake();
+                logicaCadastro.salvar(cliente);
             }
         };
     }
