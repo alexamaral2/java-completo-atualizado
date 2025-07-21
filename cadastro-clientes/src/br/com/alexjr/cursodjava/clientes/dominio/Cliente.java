@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente> {
 
     private UUID codigo;
     private String nome;
@@ -79,5 +79,10 @@ public class Cliente {
     @Override
     public int hashCode() {
         return Objects.hash(codigo, nome, cpf, sexo, Arrays.hashCode(foto));
+    }
+
+    @Override
+    public int compareTo(Cliente o) {
+        return 0;
     }
 }

@@ -3,12 +3,24 @@ package br.com.alexjr.cursodjava.clientes.colecoes;
 import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
 import br.com.alexjr.cursodjava.clientes.dominio.enums.TipoSexo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        Set<String> linguagens = new TreeSet<>();
+        linguagens.add("Java");
+        linguagens.add("Python");
+        linguagens.add("Javascript");
+        linguagens.add("Java");
 
+        for (String l : linguagens) {
+            System.out.println(l);
+        }
+
+        repositorioComList();
+    }
+
+    private static void repositorioComList(){
         List<Cliente> listaClientes = new ArrayList<>();
 
         Cliente cliente = new Cliente();
@@ -29,6 +41,9 @@ public class Main {
         for (Cliente c: listaClientes) {
             System.out.println(c);
         }
+
+        boolean contem = listaClientes.contains(cliente);
+        System.out.println("contem? " + contem);
     }
 
     private static void repositorioComArray(){
