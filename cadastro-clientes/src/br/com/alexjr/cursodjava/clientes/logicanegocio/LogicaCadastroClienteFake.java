@@ -26,4 +26,9 @@ public class LogicaCadastroClienteFake implements Cadastro<Cliente> {
     public void atualizar(Cliente objetoAtualizar) {
 
     }
+
+    @Override
+    public void imprimirRegistros() {
+
+    }
 }

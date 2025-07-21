@@ -4,6 +4,7 @@ import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
 import br.com.alexjr.cursodjava.clientes.dominio.enums.TipoSexo;
 import br.com.alexjr.cursodjava.clientes.logicanegocio.Cadastro;
 import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroClienteFake;
+import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroMemoria;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,8 +22,11 @@ public class TelaCadastro extends JFrame {
 
     private JButton botaoSalvar;
 
+    private Cadastro<Cliente> logicaCadastro = new LogicaCadastroMemoria();
+
     public TelaCadastro(){
         construirTela();
+        this.logicaCadastro = new LogicaCadastroMemoria();
     }
 
     private void construirTela(){
@@ -87,8 +91,9 @@ public class TelaCadastro extends JFrame {
                 cliente.setCpf(campoCpf.getText());
                 cliente.setSexo((TipoSexo) campoSexo.getSelectedItem());
 
-                Cadastro<Cliente> logicaCadastro = new LogicaCadastroClienteFake();
                 logicaCadastro.salvar(cliente);
+
+                logicaCadastro.imprimirRegistros();
             }
         };
     }
