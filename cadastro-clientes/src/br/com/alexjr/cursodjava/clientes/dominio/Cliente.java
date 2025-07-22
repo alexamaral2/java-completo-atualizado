@@ -3,6 +3,7 @@ package br.com.alexjr.cursodjava.clientes.dominio;
 import br.com.alexjr.cursodjava.clientes.dominio.enums.TipoSexo;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -83,6 +84,11 @@ public class Cliente implements Comparable<Cliente> {
 
     @Override
     public int compareTo(Cliente o) {
-        return 0;
+        int fator = this.nome.compareTo(o.getNome());
+        if (fator == 0) {
+            fator = this.sexo.equals(o.getSexo()) ? -1 : 1;
+        }
+
+        return fator;
     }
 }
