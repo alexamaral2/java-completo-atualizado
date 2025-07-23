@@ -1,4 +1,4 @@
-package br.com.alexjr.cursodjava.clientes.colecoes;
+package estudo.colecoes;
 
 import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
 import br.com.alexjr.cursodjava.clientes.dominio.enums.TipoSexo;
