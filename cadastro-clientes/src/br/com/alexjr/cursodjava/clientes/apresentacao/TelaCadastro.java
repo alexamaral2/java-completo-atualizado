@@ -2,6 +2,7 @@ package br.com.alexjr.cursodjava.clientes.apresentacao;
 
 import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
 import br.com.alexjr.cursodjava.clientes.dominio.enums.TipoSexo;
+import br.com.alexjr.cursodjava.clientes.dominio.exceptions.CpfInvalidoException;
 import br.com.alexjr.cursodjava.clientes.logicanegocio.Cadastro;
 import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroClienteFake;
 import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroMemoria;
@@ -91,9 +92,14 @@ public class TelaCadastro extends JFrame {
                 cliente.setCpf(campoCpf.getText());
                 cliente.setSexo((TipoSexo) campoSexo.getSelectedItem());
 
-                logicaCadastro.salvar(cliente);
-
-                logicaCadastro.imprimirRegistros();
+                try {
+                    logicaCadastro.salvar(cliente);
+                    logicaCadastro.imprimirRegistros();
+                } catch (CpfInvalidoException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
         };
     }

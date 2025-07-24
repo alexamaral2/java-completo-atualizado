@@ -1,6 +1,7 @@
 package br.com.alexjr.cursodjava.clientes.logicanegocio;
 
 import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
+import br.com.alexjr.cursodjava.clientes.dominio.exceptions.CpfInvalidoException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,8 @@ public class LogicaCadastroMemoria implements Cadastro<Cliente> {
     }
 
     @Override
-    public void salvar(Cliente cliente) {
+    public void salvar(Cliente cliente) throws CpfInvalidoException {
+        ValidadorCliente.validar(cliente);
         this.lista.add(cliente);
     }
 
