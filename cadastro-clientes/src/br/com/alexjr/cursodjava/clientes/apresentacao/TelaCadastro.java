@@ -8,29 +8,34 @@ import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroClienteFake
 import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroMemoria;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URL;
 
 public class TelaCadastro extends JFrame {
 
     private JLabel labelNome;
     private JLabel labelCpf;
     private JLabel labelSexo;
+    private JLabel labelFoto;
 
     private JTextField campoNome;
     private JTextField campoCpf;
     private JComboBox<TipoSexo> campoSexo;
 
     private JButton botaoSalvar;
+    private JButton botaoEscolherFoto;
 
     private Cadastro<Cliente> logicaCadastro = new LogicaCadastroMemoria();
 
-    public TelaCadastro(){
+    public TelaCadastro() {
         construirTela();
         this.logicaCadastro = new LogicaCadastroMemoria();
     }
 
-    private void construirTela(){
+    private void construirTela() {
         setSize(600, 500);
         setTitle("Cadastro de Cliente");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -41,7 +46,7 @@ public class TelaCadastro extends JFrame {
         this.adicionarComponentesFoto();
     }
 
-    private void adicionarCampos(){
+    private void adicionarCampos() {
         labelNome = new JLabel("Nome:");
         labelNome.setBounds(20, 20, 200, 20);
         getContentPane().add(labelNome);
@@ -68,7 +73,7 @@ public class TelaCadastro extends JFrame {
         getContentPane().add(campoSexo);
     }
 
-    private void adicionarBotoes(){
+    private void adicionarBotoes() {
         botaoSalvar = new JButton("Salvar");
         botaoSalvar.setBounds(20, 160, 100, 20);
 
@@ -79,8 +84,44 @@ public class TelaCadastro extends JFrame {
         getContentPane().add(botaoSalvar);
     }
 
-    private void adicionarComponentesFoto(){
+    private void adicionarComponentesFoto() {
+        String caminhoFoto = "/br/com/alexjr/cursodjava/clientes/apresentacao/image.jpg";
+        URL localizacao = getClass().getResource(caminhoFoto);
+        ImageIcon imageIcon = new ImageIcon(localizacao);
 
+        Image imageRedimensionada = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+        imageIcon = new ImageIcon(imageRedimensionada);
+
+        labelFoto = new JLabel(imageIcon);
+        labelFoto.setIcon(imageIcon);
+        labelFoto.setBounds(240, 0, 200, 200);
+
+        getContentPane().add(labelFoto);
+
+        botaoEscolherFoto = new JButton("Alterar Foto");
+        botaoEscolherFoto.setBounds(260, 205, 160, 20);
+        botaoEscolherFoto.addActionListener(botaoEscolherFotoActionListener());
+
+        getContentPane().add(botaoEscolherFoto);
+    }
+
+    private ActionListener botaoEscolherFotoActionListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                int opcao = fc.showOpenDialog(TelaCadastro.this);
+
+                if (opcao == JFileChooser.APPROVE_OPTION) {
+                    File arquivoSelecionado = fc.getSelectedFile();
+                    String caminho = arquivoSelecionado.getAbsolutePath();
+
+                    ImageIcon imageIcon = new ImageIcon(caminho);
+                    labelFoto.setIcon(imageIcon);
+                }
+            }
+        };
     }
 
     private ActionListener botaoSalvarActionListener() {
