@@ -13,7 +13,9 @@ public class Cliente implements Comparable<Cliente> {
     private String nome;
     private String cpf;
     private TipoSexo sexo;
+    private int idade;
     private byte[] foto;
+    private Boolean ativo;
 
     public Cliente() {
         this.codigo = UUID.randomUUID();
@@ -57,6 +59,22 @@ public class Cliente implements Comparable<Cliente> {
 
     public void setFoto(byte[] foto) {
         this.foto = foto;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
