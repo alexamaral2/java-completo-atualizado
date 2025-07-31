@@ -6,6 +6,7 @@ import br.com.alexjr.cursodjava.clientes.dominio.exceptions.CpfInvalidoException
 import br.com.alexjr.cursodjava.clientes.logicanegocio.Cadastro;
 import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroClienteFake;
 import br.com.alexjr.cursodjava.clientes.logicanegocio.LogicaCadastroMemoria;
+import br.com.alexjr.cursodjava.clientes.utilitario.ConversorIconParaByteArray;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,13 +86,7 @@ public class TelaCadastro extends JFrame {
     }
 
     private void adicionarComponentesFoto() {
-        String caminhoFoto = "/br/com/alexjr/cursodjava/clientes/apresentacao/image.jpg";
-        URL localizacao = getClass().getResource(caminhoFoto);
-        ImageIcon imageIcon = new ImageIcon(localizacao);
-
-        Image imageRedimensionada = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-
-        imageIcon = new ImageIcon(imageRedimensionada);
+        ImageIcon imageIcon = obterImagemPadraoFoto();
 
         labelFoto = new JLabel(imageIcon);
         labelFoto.setIcon(imageIcon);
@@ -104,6 +99,17 @@ public class TelaCadastro extends JFrame {
         botaoEscolherFoto.addActionListener(botaoEscolherFotoActionListener());
 
         getContentPane().add(botaoEscolherFoto);
+    }
+
+    private ImageIcon obterImagemPadraoFoto() {
+        String caminhoFoto = "/br/com/alexjr/cursodjava/clientes/apresentacao/image.jpg";
+        URL localizacao = getClass().getResource(caminhoFoto);
+        ImageIcon imageIcon = new ImageIcon(localizacao);
+
+        Image imageRedimensionada = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+        imageIcon = new ImageIcon(imageRedimensionada);
+        return imageIcon;
     }
 
     private ActionListener botaoEscolherFotoActionListener() {
@@ -133,9 +139,19 @@ public class TelaCadastro extends JFrame {
                 cliente.setCpf(campoCpf.getText());
                 cliente.setSexo((TipoSexo) campoSexo.getSelectedItem());
 
+                byte[] byteArray = ConversorIconParaByteArray.converter(labelFoto.getIcon());
+                cliente.setFoto(byteArray);
+
                 try {
                     logicaCadastro.salvar(cliente);
-                    logicaCadastro.imprimirRegistros();
+                    campoNome.setText("");
+                    campoCpf.setText("");
+                    campoSexo.setSelectedIndex(0);
+                    campoSexo.setSelectedItem(0);
+
+                    labelFoto.setIcon(TelaCadastro.this.obterImagemPadraoFoto());
+
+                    JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
                 } catch (CpfInvalidoException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 } catch (Exception ex) {

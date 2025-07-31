@@ -2,6 +2,7 @@ package br.com.alexjr.cursodjava.clientes.logicanegocio;
 
 import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
 import br.com.alexjr.cursodjava.clientes.dominio.exceptions.CpfInvalidoException;
+import br.com.alexjr.cursodjava.clientes.utilitario.GerenciadorArquivo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class LogicaCadastroMemoria implements Cadastro<Cliente> {
     public void salvar(Cliente cliente) throws CpfInvalidoException {
         ValidadorCliente.validar(cliente);
         this.lista.add(cliente);
+        GerenciadorArquivo.persistirArquivo(cliente.getNome() + ".jpg", cliente.getFoto());
     }
 
     @Override
