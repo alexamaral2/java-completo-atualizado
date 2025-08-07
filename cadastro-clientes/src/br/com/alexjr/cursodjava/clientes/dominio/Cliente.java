@@ -3,8 +3,6 @@ package br.com.alexjr.cursodjava.clientes.dominio;
 import br.com.alexjr.cursodjava.clientes.dominio.enums.TipoSexo;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Cliente implements Comparable<Cliente> {
@@ -13,12 +11,21 @@ public class Cliente implements Comparable<Cliente> {
     private String nome;
     private String cpf;
     private TipoSexo sexo;
-    private int idade;
-    private byte[] foto;
+    private Integer idade;
     private Boolean ativo;
+    private byte[] foto;
 
-    public Cliente() {
+    public Cliente(){
         this.codigo = UUID.randomUUID();
+        System.out.println("Código do cliente: " + this.codigo.toString());
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
     public UUID getCodigo() {
@@ -61,52 +68,55 @@ public class Cliente implements Comparable<Cliente> {
         this.foto = foto;
     }
 
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
-
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "Cliente [" +
                 "codigo=" + codigo +
                 ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", sexo=" + sexo +
                 ", foto=" + Arrays.toString(foto) +
-                '}';
+                ']';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(codigo, cliente.codigo) && Objects.equals(nome, cliente.nome) && Objects.equals(cpf, cliente.cpf) && sexo == cliente.sexo && Objects.deepEquals(foto, cliente.foto);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        Cliente cliente = (Cliente) object;
+
+        if (!codigo.equals(cliente.codigo)) return false;
+        if (!nome.equals(cliente.nome)) return false;
+        if (!cpf.equals(cliente.cpf)) return false;
+        return sexo == cliente.sexo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nome, cpf, sexo, Arrays.hashCode(foto));
+        int result = codigo.hashCode();
+        result = 31 * result + nome.hashCode();
+        result = 31 * result + cpf.hashCode();
+        result = 31 * result + sexo.hashCode();
+        return result;
     }
+
+    /**
+     *
+     * @param o the object to be compared.
+     * @return
+     *
+     * 0 -> são iguais -> 1 == 1
+     * 1 -> é maior -> 2 > 1
+     * -1 -> é menor -> 1 < 2
+     */
 
     @Override
     public int compareTo(Cliente o) {
         int fator = this.nome.compareTo(o.getNome());
-        if (fator == 0) {
-            fator = this.sexo.equals(o.getSexo()) ? -1 : 1;
+        if(fator == 0){
+            fator = this.sexo.equals(TipoSexo.F) ? -1 : 1;
         }
-
         return fator;
     }
 }
