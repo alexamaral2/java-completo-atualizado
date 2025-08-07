@@ -3,6 +3,7 @@ package br.com.alexjr.cursodjava.clientes.logicanegocio;
 import br.com.alexjr.cursodjava.clientes.dominio.Cliente;
 
 import javax.swing.*;
+import java.util.Optional;
 import java.util.UUID;
 
 public class LogicaCadastroClienteFake implements Cadastro<Cliente> {
@@ -13,7 +14,7 @@ public class LogicaCadastroClienteFake implements Cadastro<Cliente> {
     }
 
     @Override
-    public Cliente buscar(UUID codigo) {
+    public Optional<Cliente> buscar(UUID codigo) {
         return null;
     }
 

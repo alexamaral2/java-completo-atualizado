@@ -6,6 +6,7 @@ import br.com.alexjr.cursodjava.clientes.utilitario.GerenciadorArquivo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class LogicaCadastroMemoria implements Cadastro<Cliente> {
@@ -24,7 +25,7 @@ public class LogicaCadastroMemoria implements Cadastro<Cliente> {
     }
 
     @Override
-    public Cliente buscar(UUID codigo) {
+    public Optional<Cliente> buscar(UUID codigo) {
         Cliente clienteEncontrado = null;
         for (Cliente cliente : lista) {
             if (cliente.getCodigo().equals(codigo)) {
@@ -32,15 +33,14 @@ public class LogicaCadastroMemoria implements Cadastro<Cliente> {
                 break;
             }
         }
-        return clienteEncontrado;
+        return Optional.ofNullable(clienteEncontrado);
     }
 
     @Override
     public void deletar(UUID codigo) {
-        Cliente clienteEncontrado = this.buscar(codigo);
-        if (clienteEncontrado != null) {
-            this.lista.remove(clienteEncontrado);
-        }
+        this.buscar(codigo).
+                ifPresentOrElse(cliente -> lista.remove(cliente),
+                        () -> System.out.println("Cliente não removido!"));
     }
 
     @Override
